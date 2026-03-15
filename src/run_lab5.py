@@ -1,4 +1,5 @@
 import json
+import os
 from shapely.geometry import Polygon, LineString
 from spatial import Parcel, Building, Road
 
@@ -77,5 +78,19 @@ def main():
         print(f"{k}: {round(v, 2)}")
 
 
+    # Results
+    os.makedirs("output", exist_ok=True)
+
+    results = {
+        "total_effective_area": round(total_area, 2),
+        "area_by_type": {k: round(v, 2) for k, v in area_by_type.items()}
+    }
+
+    with open("output/lab5_results.json", "w") as f:
+        json.dump(results, f, indent=4)
+
+    print("\nResults saved to output/lab5_results.json")
+
+    
 if __name__ == "__main__":
     main()
